@@ -15,9 +15,61 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+   .then(() => {
+     return Recipe.create({
+       title: "Paella de marisco",
+       level: "UltraPro Chef",
+       ingredients: ["arroz", "gambas", "pescado", "caldo"],
+       cuisine: "mediterranea",
+       dishType: "main_course",
+       image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.recetasnestle.com.ar%2Fsites%2Fdefault%2Ffiles%2Fsrh_recipes%2F876038bcd1cf5abcaa28e86d9705eaf6.jpg&imgrefurl=https%3A%2F%2Fwww.recetasnestle.com.ar%2Frecetas%2Fpaella&tbnid=mj7hIJRdRM2qjM&vet=12ahUKEwjHsvusmM76AhUQWxoKHbMmAZcQMygIegUIARCbAg..i&docid=KDHOLj4z0PkJ1M&w=2000&h=1333&q=paella%20imagen&ved=2ahUKEwjHsvusmM76AhUQWxoKHbMmAZcQMygIegUIARCbAg",
+       duration: 50,
+       creator: "Leticia",
+       created: 06/10/2022
+     })
+   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    return Recipe.insertMany(data);
   })
+
+  .then(resultado => {
+      resultado.forEach((result)=> {
+        console.log(result.title);
+      })  
+  })
+
+  .then(() => {
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100});
+  })
+  
+  .then(resultado2 => {
+        console.log("Duration cambiada: ", resultado2); 
+  })
+
+  .then(() => {
+    return Recipe.deleteOne({title: "Carrot Cake"});
+  })
+  
+  .then(resultado3 => {
+        console.log("Resultado deleteOne: ", resultado3); 
+        return "ok";
+  })
+
+  .then(close => {
+    if (close) {
+      mongoose.connection.close(()=>{
+        console.log("close!");
+      })
+    } 
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+ 
+ 
+
+
+  
+
