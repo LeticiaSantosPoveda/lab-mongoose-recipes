@@ -28,6 +28,8 @@ mongoose
        created: 06/10/2022
      })
    })
+  .then((value) => console.log(value.title))
+ 
   .then(() => {
     return Recipe.insertMany(data);
   })
